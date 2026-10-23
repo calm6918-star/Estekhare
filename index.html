@@ -144,7 +144,9 @@ footer{height:88px}
 
 <script>
 let timer=null;
-let historyItems=[];
+let historyItems = JSON.parse(
+  localStorage.getItem('estekhareh_history') || '[]'
+);
 
 function hideAll(){
  ['home','countdown','result','history'].forEach(id=>{
@@ -182,9 +184,15 @@ function showResult(){
  document.getElementById('resultText').textContent=
  'شمارش به پایان رسید. برای نمایش نتیجه واقعی استخاره، باید روش معتبر و منبع مشخص آیات قرآن به برنامه اضافه شود. در این نسخه هیچ آیه یا نتیجه‌ای به‌صورت تصادفی به قرآن نسبت داده نمی‌شود.';
  historyItems.unshift(
-  'شمارش استخاره در '+new Date().toLocaleString('fa-IR')+
+  'شمارش استخاره در ' +
+  new Date().toLocaleString('fa-IR') +
   ' انجام شد؛ نتیجه قرآنی هنوز فعال نیست.'
- );
+);
+
+localStorage.setItem(
+  'estekhareh_history',
+  JSON.stringify(historyItems)
+);
  window.scrollTo({top:0,behavior:'smooth'});
 }
 
@@ -197,7 +205,7 @@ function showHistory(){
  document.getElementById('history').style.display='block';
  document.getElementById('historyText').textContent=
   historyItems.length ? historyItems.join(' | ') :
-  'هنوز استخاره‌ای در این نشست ثبت نشده است.';
+  'هنوز استخاره‌ای ثبت نشده است.';
  window.scrollTo({top:0,behavior:'smooth'});
 }
 
