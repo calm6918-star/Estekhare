@@ -1,0 +1,217 @@
+
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#dff9e8">
+<title>استخاره با قرآن کریم</title>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;font-family:Tahoma,sans-serif;color:#14532d;
+ background:linear-gradient(145deg,#effff3,#cff6dd,#eaffef);
+ min-height:100vh
+}
+header{text-align:center;padding:30px 16px 20px}
+.mosque{font-size:48px;color:#398c4c}
+h1{font-size:34px;margin:8px}
+.subtitle{font-size:18px;margin:12px}
+.divider{color:#60a873;margin:18px}
+.intro{font-size:14px;line-height:2}
+main{max-width:540px;margin:auto;padding:12px 15px 35px}
+.panel{
+ background:#ffffffa8;border:1px solid #ffffff;
+ border-radius:30px;padding:22px 15px;
+ box-shadow:0 10px 30px #246b3a0c
+}
+.panel h2{text-align:center;font-size:21px;line-height:1.8}
+.description{text-align:center;font-size:14px;line-height:2}
+.options{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:22px}
+.option{
+ min-width:0;min-height:210px;padding:15px 8px;
+ border:2px solid #d5f1dc;border-radius:28px;
+ background:#ffffff65;color:#15572a;font-family:inherit;
+ cursor:pointer
+}
+.symbol{font-size:43px;color:#58b82f}
+.option h3{font-size:16px;line-height:1.8}
+.option p{font-size:12px;line-height:2}
+.arrow{font-size:24px}
+.notice{
+ display:flex;align-items:center;gap:12px;margin-top:20px;
+ padding:15px;border-radius:24px;background:#d9f9e4;
+ font-size:12px;line-height:2.2
+}
+#result{display:none}
+.card{
+ margin-top:20px;padding:20px 15px;background:#ffffffa8;
+ border:1px solid white;border-radius:25px;text-align:center
+}
+.count-circle{
+ width:min(64vw,240px);height:min(64vw,240px);
+ margin:25px auto;border-radius:50%;background:#29b39a;
+ color:white;display:flex;align-items:center;justify-content:center;
+ font-size:76px;box-shadow:0 10px 30px #239d7d22
+}
+.status{font-size:16px;line-height:2}
+.result-text{font-size:15px;line-height:2.3}
+.btn{
+ border:0;border-radius:13px;background:#17652e;color:white;
+ padding:13px 20px;font-family:inherit;font-size:14px;cursor:pointer
+}
+.secondary{background:#e1f7e8;color:#15572a;border:1px solid #bfe6ca}
+.bottom{
+ position:fixed;bottom:8px;left:10px;right:10px;max-width:540px;
+ margin:auto;display:flex;justify-content:space-around;gap:2px;
+ padding:12px 3px 8px;border:1px solid white;border-radius:40px;
+ background:#f7fff9f2;box-shadow:0 5px 25px #286b3a12
+}
+.nav-item{flex:1;text-align:center;font-size:10px;line-height:2}
+.nav-icon{display:block;font-size:24px}
+.active{color:#58b82f}
+.support{color:#f5a623}
+footer{height:88px}
+@media(max-width:360px){
+ h1{font-size:29px}.panel h2{font-size:18px}
+ .option{padding:12px 5px}
+}
+</style>
+</head>
+<body>
+<header>
+ <div class="mosque">☪</div>
+ <h1>استخاره</h1>
+ <div class="subtitle">با قرآن کریم</div>
+ <div class="divider">──── ❋ ────</div>
+ <p class="intro">با آرامش دل، آگاهی و توکل به خداوند</p>
+</header>
+
+<main>
+<section class="panel" id="home">
+ <h2>روش موردنظر خود را انتخاب کنید</h2>
+ <p class="description">برای شروع، یکی از گزینه‌های زیر را انتخاب کنید.</p>
+ <div class="options">
+  <button class="option" onclick="startCountdown()">
+   <div class="symbol">♧</div>
+   <h3>استخاره با قرآن</h3>
+   <p>آیه، ترجمه و منبع معتبر</p>
+   <div class="arrow">‹</div>
+  </button>
+  <button class="option" onclick="showPrepared()">
+   <div class="symbol">☆</div>
+   <h3>مطالب راهنما</h3>
+   <p>راهنمای معنوی</p>
+   <div class="arrow">‹</div>
+  </button>
+ </div>
+ <div class="notice">
+  <span style="font-size:28px">♧</span>
+  <span>راهنمایی معنوی برای همراهی با تفکر، تحقیق و مشورت؛ نه جایگزین آن‌ها.</span>
+ </div>
+</section>
+
+<section class="card" id="countdown" style="display:none">
+ <h2>نتیجه استخاره شما</h2>
+ <p class="status" id="countStatus">
+  چند لحظه آرام باشید و به نیت خود فکر کنید.
+ </p>
+ <div class="count-circle" id="number">۶</div>
+ <p class="status">لطفاً تا پایان شمارش منتظر بمانید.</p>
+ <button class="btn secondary" onclick="cancelCountdown()">بازگشت</button>
+</section>
+
+<section class="card" id="result" style="display:none">
+ <div style="font-size:42px">☘</div>
+ <h2 id="resultTitle">راهنمای استخاره</h2>
+ <p class="result-text" id="resultText"></p>
+ <p class="description">
+  این نسخه هنوز به منبع معتبر آیات و روش مشخص استخاره متصل نشده است.
+ </p>
+ <button class="btn" onclick="goHome()">بازگشت به خانه</button>
+</section>
+
+<section class="card" id="guide" style="display:none">
+ <h2>راهنمای معنوی</h2>
+ <p class="result-text">
+  پیش از تصمیم‌گیری، جوانب موضوع را بررسی کنید، اطلاعات لازم را به دست آورید
+  و با افراد آگاه مشورت کنید.
+ </p>
+ <button class="btn" onclick="goHome()">بازگشت به خانه</button>
+</section>
+<footer></footer>
+</main>
+
+<nav class="bottom">
+ <div class="nav-item active"><span class="nav-icon">⌂</span>خانه</div>
+ <div class="nav-item"><span class="nav-icon">♧</span>علاقه‌مندی</div>
+ <div class="nav-item support"><span class="nav-icon">♥</span>حمایت</div>
+ <div class="nav-item"><span class="nav-icon">⌁</span>سفر من</div>
+ <div class="nav-item"><span class="nav-icon">⚙</span>تنظیمات</div>
+</nav>
+
+<script>
+let timer=null;
+
+function hideAll(){
+ document.getElementById('home').style.display='none';
+ document.getElementById('countdown').style.display='none';
+ document.getElementById('result').style.display='none';
+ document.getElementById('guide').style.display='none';
+}
+
+function startCountdown(){
+ if(timer!==null) clearInterval(timer);
+ hideAll();
+ const section=document.getElementById('countdown');
+ const number=document.getElementById('number');
+ const status=document.getElementById('countStatus');
+ section.style.display='block';
+ let count=6;
+ number.textContent=count;
+ status.textContent='چند لحظه آرام باشید و به نیت خود فکر کنید.';
+ timer=setInterval(function(){
+  count--;
+  if(count>0){
+   number.textContent=count;
+  }else{
+   clearInterval(timer);
+   timer=null;
+   showResult();
+  }
+ },1000);
+ window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function showResult(){
+ hideAll();
+ document.getElementById('result').style.display='block';
+ document.getElementById('resultTitle').textContent='راهنمای استخاره';
+ document.getElementById('resultText').textContent=
+ 'شمارش به پایان رسید. برای نمایش نتیجه واقعی استخاره، '+
+ 'باید روش معتبر و منبع مشخص آیات قرآن به برنامه اضافه شود. '+
+ 'در این نسخه هیچ آیه یا نتیجه‌ای به‌صورت تصادفی به قرآن نسبت داده نمی‌شود.';
+ window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function showPrepared(){
+ if(timer!==null){clearInterval(timer);timer=null;}
+ hideAll();
+ document.getElementById('guide').style.display='block';
+ window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function cancelCountdown(){
+ if(timer!==null){clearInterval(timer);timer=null;}
+ goHome();
+}
+
+function goHome(){
+ if(timer!==null){clearInterval(timer);timer=null;}
+ hideAll();
+ document.getElementById('home').style.display='block';
+ window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+                                                        </html>
